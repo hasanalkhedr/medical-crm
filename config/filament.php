@@ -55,5 +55,9 @@ return [
     */
 
     'assets_path' => null,
+    'styles' => [
+    // ... other styles
+    'https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css',
+],
 
 ];

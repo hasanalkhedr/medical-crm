@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class LeadPipelineStage extends Model
 {
-    protected $fillable = [
-        'lead_id', 'user_id', 'description', 'due_date', 'is_completed'
-    ];
-    protected $casts = [
-        'due_date' => 'date',
-        'is_completed' => 'boolean',
-    ];
+    protected $fillable = ['lead_id', 'pipeline_stage_id', 'user_id', 'notes'];
+
     public function lead()
     {
         return $this->belongsTo(Lead::class);
+    }
+
+    public function pipelineStage()
+    {
+        return $this->belongsTo(PipelineStage::class);
     }
 
     public function user()

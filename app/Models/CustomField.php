@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class CustomField extends Model
 {
-    use HasFactory;
+    protected $fillable = ['name'];
 
-    protected $fillable = [
-        'name'
-    ];
+    public function leads()
+    {
+        return $this->belongsToMany(Lead::class)->withPivot('value');
+    }
 }

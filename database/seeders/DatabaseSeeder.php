@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Lead;
 use App\Models\Tag;
 use App\Models\Role;
 use App\Models\User;
@@ -53,24 +54,24 @@ class DatabaseSeeder extends Seeder
 
         $pipelineStages = [
             [
-                'name' => 'Lead',
+                'name' => 'New',
                 'position' => 1,
                 'is_default' => true,
             ],
             [
-                'name' => 'Contact Made',
+                'name' => 'Follow Up',
                 'position' => 2,
             ],
             [
-                'name' => 'Proposal Made',
+                'name' => 'Not Qualified',
                 'position' => 3,
             ],
             [
-                'name' => 'Proposal Rejected',
+                'name' => 'Booked',
                 'position' => 4,
             ],
             [
-                'name' => 'Customer',
+                'name' => 'No Show',
                 'position' => 5,
             ]
         ];
@@ -80,24 +81,17 @@ class DatabaseSeeder extends Seeder
         }
 
         $defaultPipelineStage = PipelineStage::where('is_default', true)->first()->id;
-        Customer::factory()->count(10)->create([
+        Lead::factory()->count(10)->create([
             'pipeline_stage_id' => $defaultPipelineStage,
         ]);
 
-        $customFields = [
-            'Birth Date',
-            'Company',
-            'Job Title',
-            'Family Members',
-        ];
-
-        foreach ($customFields as $customField) {
-            CustomField::create(['name' => $customField]);
-        }
 
         $roles = [
             'Admin',
-            'Employee'
+            'Doctor',
+            'Nurse',
+            'Marketing',
+            'Sales',
         ];
 
         foreach ($roles as $role) {
@@ -105,16 +99,36 @@ class DatabaseSeeder extends Seeder
         }
 
         User::factory()->create([
-            'name' => 'Tuantq Admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('12341234'),
+            'name' => 'Admin Admin',
+            'email' => 'admin@medical-crm.com',
+            'password' => Hash::make('password'),
             'role_id' => Role::where('name', 'Admin')->first()->id,
         ]);
-
-        // We will seed 10 employees
-        User::factory()->count(10)->create([
-            'role_id' => Role::where('name', 'Employee')->first()->id,
+        User::factory()->create([
+            'name' => 'Doctor Doctor',
+            'email' => 'doctor@medical-crm.com',
+            'password' => Hash::make('password'),
+            'role_id' => Role::where('name', 'Doctor')->first()->id,
         ]);
+        User::factory()->create([
+            'name' => 'Nurse Nurse',
+            'email' => 'nurse@medical-crm.com',
+            'password' => Hash::make('password'),
+            'role_id' => Role::where('name', 'Nurse')->first()->id,
+        ]);
+        User::factory()->create([
+            'name' => 'Marketing Marketing',
+            'email' => 'marketing@medical-crm.com',
+            'password' => Hash::make('password'),
+            'role_id' => Role::where('name', 'Marketing')->first()->id,
+        ]);
+        User::factory()->create([
+            'name' => 'Sales Sales',
+            'email' => 'sales@medical-crm.com',
+            'password' => Hash::make('password'),
+            'role_id' => Role::where('name', 'Sales')->first()->id,
+        ]);
+
 
         $products = [
             ['name' => 'Product 1', 'price' => 12.99],

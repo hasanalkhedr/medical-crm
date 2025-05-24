@@ -2,34 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Model;
 
 class Quote extends Model
 {
-    use HasFactory;
+    protected $fillable = ['lead_id', 'taxes'];
 
-    protected $fillable = ['customer_id', 'taxes'];
-
-    public function customer(): BelongsTo
+    public function lead()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Lead::class);
     }
 
-    public function products(): BelongsToMany
+    public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot(['quantity', 'price']);
+        return $this->belongsToMany(Product::class, 'product_quote')
+            ->withPivot('quantity', 'price');
     }
-
-    public function quoteProducts(): HasMany
+    public function quoteProducts()
     {
         return $this->hasMany(ProductQuote::class);
     }
-
     protected function total(): Attribute
     {
         return Attribute::make(

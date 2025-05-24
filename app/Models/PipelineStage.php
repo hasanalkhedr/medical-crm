@@ -4,20 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PipelineStage extends Model
 {
-    use HasFactory;
+    protected $fillable = ['name', 'position', 'is_default', 'is_clinical'];
 
-    protected $fillable = [
-        'name',
-        'position',
-        'is_default',
-    ];
-
-    public function customers(): HasMany
+    public function leads()
     {
-        return $this->hasMany(Customer::class);
+        return $this->hasMany(Lead::class);
     }
 }

@@ -4,16 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Tag extends Model
 {
-    use HasFactory;
-
     protected $fillable = ['name', 'color'];
 
-    public function customers(): BelongsToMany
+    public function leads()
     {
-        return $this->belongsToMany(Customer::class);
+        return $this->belongsToMany(Lead::class);
     }
 }
