@@ -65,9 +65,11 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]) 
+            ])
             ->plugins([
                 FilamentFullCalendarPlugin::make()
+                    ->editable()
+                    ->locale(config('app.locale'))
             ]);
     }
 }
